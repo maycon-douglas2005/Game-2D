@@ -13,9 +13,6 @@ public class Container extends JFrame{
 		setLocationRelativeTo(null);
 		this.setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
-		
 	}
 	
 	
