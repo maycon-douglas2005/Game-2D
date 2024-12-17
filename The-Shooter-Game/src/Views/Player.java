@@ -2,6 +2,9 @@ package Views;
 
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.ImageIcon;
 
 public class Player {
@@ -9,10 +12,14 @@ public class Player {
 	private int dx, dy;
 	private Image imagem;
 	private int altura, largura;
+	private List <Tiro> tiros;
+	
 	
 	public Player() {
 		this.x= 300;
 		this.y=500;
+		
+		tiros = new ArrayList<Tiro>();
 	}
 	
 	public void load() {
@@ -21,7 +28,7 @@ public class Player {
 		
 		altura = imagem.getHeight(null);
 		largura = imagem.getWidth(null);
-		System.out.println("Metodo load chamado");
+		
 	}
 	
 	public void update() {
@@ -30,47 +37,53 @@ public class Player {
 		
 	}
 	
+	public void tiroSimples() {
+		this.tiros.add(new Tiro(x+largura, y + (altura/2)));
+	}
+	
 	public void keyPressed(KeyEvent tecla) {
 		int codigo = tecla.getKeyCode();
 		
-		System.out.println("Dentro do keyPressed do Player");
-		if(codigo == KeyEvent.VK_UP) {
+		if(codigo == KeyEvent.VK_J) {
+			tiroSimples();
+		}
+		if(codigo == KeyEvent.VK_W) {
 			dy = -3;
-			System.out.println("Tecla pra cima pressionada");
+			
 		}
 		
-		if(codigo == KeyEvent.VK_DOWN) {
+		if(codigo == KeyEvent.VK_S) {
 			dy = 3;
 		}
 		
-		if(codigo == KeyEvent.VK_LEFT) {
+		if(codigo == KeyEvent.VK_A) {
 			dx = -3;
 		}
 		
 		
-		if(codigo == KeyEvent.VK_RIGHT) {
+		if(codigo == KeyEvent.VK_D) {
 			dx = 3;
 		}
 	}
 	
 	public void keyRelease(KeyEvent tecla) {
 		int codigo = tecla.getKeyCode();
-		System.out.println("Dentro do keyRelease");
-		if(codigo == KeyEvent.VK_UP) {
+		
+		if(codigo == KeyEvent.VK_W) {
 			dy = 0;
-			System.out.println("Dentro do keyRelease da tecla cima");
+			
 		}
 		
-		if(codigo == KeyEvent.VK_DOWN) {
+		if(codigo == KeyEvent.VK_S) {
 			dy = 0;
 		}
 		
-		if(codigo == KeyEvent.VK_LEFT) {
+		if(codigo == KeyEvent.VK_A) {
 			dx = 0;
 		}
 		
 		
-		if(codigo == KeyEvent.VK_RIGHT) {
+		if(codigo == KeyEvent.VK_D) {
 			dx = 0;
 		}
 	}
@@ -85,6 +98,10 @@ public class Player {
 
 	public Image getImagem() {
 		return imagem;
+	}
+
+	public List<Tiro> getTiros() {
+		return tiros;
 	}
 
 
