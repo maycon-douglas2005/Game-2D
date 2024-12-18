@@ -9,7 +9,7 @@ public class Container extends JFrame{
 		
 		setVisible(true);
 		setTitle("The Shooter");
-		setSize(988, 700);
+		setSize(1024, 700);
 		setLocationRelativeTo(null);
 		this.setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

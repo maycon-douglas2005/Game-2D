@@ -5,26 +5,26 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
-public class Tiro {
+public class Enemy_1 {
 	private Image skinDoTiro;
 	private int x,y,largura, altura;
 	private boolean isVisivel;
 	
 	
 	
-	private static final int LARGURA = 700;
+//	private static final int LARGURA = 700;
 	
 	private static final int VELOCIDADE = 10;
 	
 	
-	public Tiro (int x, int y) {
+	public Enemy_1 (int x, int y) {
 		this.x = x;
 		this.y = y;
 		isVisivel = true;
 	}
 	
 	public void load() {
-		ImageIcon referencia = new ImageIcon("src\\img\\tecnica-azul-satoru-gojo.png");
+		ImageIcon referencia = new ImageIcon("src\\img\\inimigo_1.jpeg");
 		skinDoTiro = referencia.getImage();
 		
 		this.altura = skinDoTiro.getHeight(null);
@@ -33,11 +33,11 @@ public class Tiro {
 	}
 	
 	public void update() {
-		this.x += VELOCIDADE;
+		this.x -= VELOCIDADE;
 		
-		if(this.x > 900) {
+		/*if(this.x > 700) {
 			isVisivel = false;
-		}
+		}*/ 
 	}
 
 	public boolean isVisivel() {
