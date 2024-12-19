@@ -1,6 +1,7 @@
 package Views;
 
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ public class Player {
 	private Image imagem;
 	private int altura, largura;
 	private List <Tiro> tiros;
+	private boolean isVisivel;
 	
 	boolean teclaDpressionada = false;
 	boolean teclaKpressionada = false;
@@ -25,6 +27,8 @@ public class Player {
 		this.y=550;
 		
 		tiros = new ArrayList<Tiro>();
+		
+		isVisivel = true;
 	}
 	
 	public void load() {
@@ -44,6 +48,10 @@ public class Player {
 	
 	public void tiroSimples() {
 		this.tiros.add(new Tiro(x+largura, y + (altura-200)));
+	}
+	
+	public Rectangle getBounds() { 
+		return new Rectangle(x,y,altura,largura);
 	}
 	
 	public void keyPressed(KeyEvent tecla) {
@@ -145,6 +153,14 @@ public class Player {
 
 	public List<Tiro> getTiros() {
 		return tiros;
+	}
+
+	public boolean isVisivel() {
+		return isVisivel;
+	}
+
+	public void setVisivel(boolean isVisivel) {
+		this.isVisivel = isVisivel;
 	}
 
 

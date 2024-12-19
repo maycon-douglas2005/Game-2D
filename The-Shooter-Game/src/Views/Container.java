@@ -8,7 +8,7 @@ public class Container extends JFrame{
 		add(new Fase_1());
 		
 		setVisible(true);
-		setTitle("The Shooter");
+		setTitle("Jujutsu Kaisen");
 		setSize(1024, 700);
 		setLocationRelativeTo(null);
 		this.setResizable(false);

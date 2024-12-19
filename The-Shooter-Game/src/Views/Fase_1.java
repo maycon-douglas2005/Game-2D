@@ -3,6 +3,7 @@ package Views;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -21,7 +22,8 @@ public class Fase_1 extends JPanel implements ActionListener {
 	private Player player;
 	private Timer timer;
 	private List<Enemy_1> enemy_1;
-
+	private boolean emJogo;
+	
 	public Fase_1() {
 
 		setFocusable(true); // Garante que o painel pode receber foco
@@ -38,6 +40,8 @@ public class Fase_1 extends JPanel implements ActionListener {
 		timer = new Timer(5, this);
 		timer.start();
 		inicializarInimigos();
+		
+		emJogo = true;
 	}
 	
 	public void inicializarInimigos() {
@@ -54,25 +58,34 @@ public class Fase_1 extends JPanel implements ActionListener {
 
 	public void paint(Graphics g) {
 		Graphics2D graficos = (Graphics2D) g;
+		if(emJogo) {
+			
 
-		graficos.drawImage(fundo, 0, 0, null);
+			graficos.drawImage(fundo, 0, 0, null);
 
-		graficos.drawImage(player.getImagem(), player.getX(), player.getY(), this);
+			graficos.drawImage(player.getImagem(), player.getX(), player.getY(), this);
 
-		List<Tiro> tiros = player.getTiros();
-		for (int i = 0; i < tiros.size(); i++) {
-			Tiro m = tiros.get(i);
-			m.load();
-			graficos.drawImage(m.getSkinDoTiro(), m.getX(), m.getY(), this);
+			List<Tiro> tiros = player.getTiros();
+			for (int i = 0; i < tiros.size(); i++) {
+				Tiro m = tiros.get(i);
+				m.load();
+				graficos.drawImage(m.getSkinDoTiro(), m.getX(), m.getY(), this);
 
-		}
-		
-		for (int o = 0; o < enemy_1.size(); o++) {
-			Enemy_1 in = enemy_1.get(o);
-			in.load();
-			graficos.drawImage(in.getSkinDoTiro(),in.getX(), in.getY(), this);
+			}
+			
+			for (int o = 0; o < enemy_1.size(); o++) {
+				Enemy_1 in = enemy_1.get(o);
+				in.load();
+				graficos.drawImage(in.getSkinDoTiro(),in.getX(), in.getY(), this);
+				
+			}
 			
 		}
+		else {
+			ImageIcon fimJogo = new ImageIcon("src\\img\\game-over.png");
+			graficos.drawImage(fimJogo.getImage(),350,250, null);
+		}
+		
 		g.dispose();
 	}
 
@@ -99,10 +112,44 @@ public class Fase_1 extends JPanel implements ActionListener {
 			}
 				
 		}
+		checarColisoes();
 		repaint();
 		
 	}
 
+	public void checarColisoes() {
+		Rectangle formaNave = player.getBounds();
+		Rectangle formaEnemy1;
+		Rectangle formaTiro;
+		
+		
+		for (int i = 0; i < enemy_1.size(); i++) {
+			Enemy_1 tempEnemy1 = enemy_1.get(i);
+			formaEnemy1 = tempEnemy1.getBounds();
+			if(formaNave.intersects(formaEnemy1)) {
+				player.setVisivel(false);
+				tempEnemy1.setVisivel(false);
+				emJogo = false;
+			}
+				
+			
+		}
+		List <Tiro> tiros = player.getTiros();
+		for (int j = 0; j < tiros.size(); j++) {
+			Tiro tempTiro = tiros.get(j);
+			formaTiro = tempTiro.getBounds();
+			for (int o = 0; o < enemy_1.size(); o++) {
+				Enemy_1 tempEnemy1 = enemy_1.get(o);
+				formaEnemy1 = tempEnemy1.getBounds();
+				if(formaTiro.intersects(formaEnemy1)) {
+					tempEnemy1.setVisivel(false);
+				}
+			}
+			
+		}
+	}
+	
+	
 	private class TecladoAdapter extends KeyAdapter {
 
 		@Override

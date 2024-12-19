@@ -1,6 +1,7 @@
 package Views;
 
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -40,6 +41,11 @@ public class Tiro {
 		}
 	}
 
+	
+	public Rectangle getBounds() { 
+		return new Rectangle(x,y,altura,largura);
+	}
+	
 	public boolean isVisivel() {
 		return isVisivel;
 	}
