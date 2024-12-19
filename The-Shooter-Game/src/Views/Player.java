@@ -17,6 +17,8 @@ public class Player {
 	boolean teclaDpressionada = false;
 	boolean teclaKpressionada = false;
 	boolean teclaApressionada = false;
+	boolean teclaWpressionada = false;
+	boolean teclaSpressionada = false;
 	
 	public Player() {
 		this.x= 300;
@@ -55,11 +57,12 @@ public class Player {
 		}
 		if(codigo == KeyEvent.VK_W) {
 			dy = -3;
-			
+			teclaWpressionada = true;
 		}
 		
 		if(codigo == KeyEvent.VK_S) {
 			dy = 3;
+			teclaSpressionada = true;
 		}
 		
 		if(codigo == KeyEvent.VK_A) {
@@ -90,6 +93,12 @@ public class Player {
 				x = 300;
 			}
 		}
+		if(teclaKpressionada && teclaWpressionada) {
+			dy = -10;
+		}
+		if(teclaKpressionada && teclaSpressionada) {
+			dy = 10;
+		}
 	}
 	
 	public void keyRelease(KeyEvent tecla) {
@@ -97,11 +106,12 @@ public class Player {
 		
 		if(codigo == KeyEvent.VK_W) {
 			dy = 0;
-			
+			teclaWpressionada = false;
 		}
 		
 		if(codigo == KeyEvent.VK_S) {
 			dy = 0;
+			teclaSpressionada = false;
 		}
 		
 		if(codigo == KeyEvent.VK_A) {
